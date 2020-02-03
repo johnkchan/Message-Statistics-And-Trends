@@ -5,24 +5,30 @@ class ChatForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ""
+      rawUserInput: "",
+      jsonUserInput: ""
     };
   }
 
   handleChange = event => {
-    this.setState({ value: event.target.value });
+    this.setState({ 
+      rawUserInput: event.target.value
+    });
   };
 
   handleSubmit = event => {
-    alert("Group Chat: " + this.state.value);
+    // TODO: Add Validation of JSON input from User
     event.preventDefault();
+    this.setState({
+      jsonUserInput: JSON.parse(this.state.rawUserInput)
+    })
   };
 
   resetForm = () => {
     let prompt = window.confirm("Textarea will be cleared, are you sure?");
     if (prompt) {
       this.setState({
-        value: ""
+        rawUserInput: ""
       });
     }
   };
@@ -51,7 +57,7 @@ class ChatForm extends Component {
           </form>
         </div>
 
-        <Stats messages={this.state.messages} />
+        <Stats groupChat={this.state.jsonUserInput} />
       </React.Fragment>
     );
   }

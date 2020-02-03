@@ -3,18 +3,23 @@ import List from "./List";
 
 class Stats extends Component {
   render() {
-    // let messages = JSON.parse(this.props.messages);
-    // let participants = messages.participants[0].name;
-
-    return (
-      <div>
+    if (this.props.groupChat) {
+      return (
+        <div>
+          <h2>Group Chat Breakdown:</h2>
+          <List title='Participants' />
+          <ol>
+            {this.props.groupChat.participants.map(i => <li>{i.name}</li>)}
+          </ol>
+          <List title='Top 5 Most Active Participants' />
+          <List title='Top 5 Least Active Participants' />
+        </div>
+      );
+    } else {
+      return(
         <h2>Group Chat Breakdown:</h2>
-        {/* <h3>{participants}</h3> */}
-        <List title='Participants' />
-        <List title='Top 5 Most Active Participants' />
-        <List title='Top 5 Least Active Participants' />
-      </div>
-    );
+      );
+    }
   }
 }
 
