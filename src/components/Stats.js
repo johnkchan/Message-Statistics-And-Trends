@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import List from "./List";
+import Participant from "../classes/Participant"
 
 class Stats extends Component {
   render() {
+
     if (this.props.groupChat) {
       return (
         <div>
