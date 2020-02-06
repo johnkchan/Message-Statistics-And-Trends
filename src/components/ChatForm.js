@@ -46,7 +46,7 @@ class ChatForm extends Component {
               placeholder='Paste Group Chat JSON Extract Here...'
               rows='15'
             />
-            <input type='submit' value='Submit' className='btn btn-primary' />
+            <input type='submit' value='Submit' className='btn btn-primary' disabled={this.state.rawUserInput === ""}/>
             <button
               type='button'
               className='btn btn-danger'
@@ -57,7 +57,7 @@ class ChatForm extends Component {
           </form>
         </div>
 
-        <Stats groupChat={this.state.jsonUserInput} />
+        {this.state.jsonUserInput !== "" && <Stats groupChat={this.state.jsonUserInput} />}
       </React.Fragment>
     );
   }
