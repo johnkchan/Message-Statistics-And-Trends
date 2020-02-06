@@ -11,7 +11,7 @@ class ChatForm extends Component {
   }
 
   handleChange = event => {
-    this.setState({ 
+    this.setState({
       rawUserInput: event.target.value
     });
   };
@@ -21,7 +21,7 @@ class ChatForm extends Component {
     event.preventDefault();
     this.setState({
       jsonUserInput: JSON.parse(this.state.rawUserInput)
-    })
+    });
   };
 
   resetForm = () => {
@@ -46,7 +46,12 @@ class ChatForm extends Component {
               placeholder='Paste Group Chat JSON Extract Here...'
               rows='15'
             />
-            <input type='submit' value='Submit' className='btn btn-primary' disabled={this.state.rawUserInput === ""}/>
+            <input
+              type='submit'
+              value='Submit'
+              className='btn btn-primary'
+              disabled={this.state.rawUserInput === ""}
+            />
             <button
               type='button'
               className='btn btn-danger'
@@ -57,7 +62,9 @@ class ChatForm extends Component {
           </form>
         </div>
 
-        {this.state.jsonUserInput !== "" && <Stats groupChat={this.state.jsonUserInput} />}
+        {this.state.jsonUserInput !== "" ? (
+          <Stats groupChat={this.state.jsonUserInput} />
+        ) : null}
       </React.Fragment>
     );
   }
