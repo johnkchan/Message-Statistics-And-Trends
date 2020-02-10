@@ -1,10 +1,10 @@
-import React from 'react';
-import ChatForm from "./components/ChatForm"
-import './App.css';
+import React from "react";
+import ChatForm from "./components/ChatForm";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <ChatForm />
     </div>
   );

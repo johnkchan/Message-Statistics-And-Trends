@@ -10,15 +10,15 @@ class ChatForm extends Component {
     };
   }
 
-  handleChange = event => {
+  handleChange = e => {
     this.setState({
-      rawUserInput: event.target.value
+      rawUserInput: e.target.value
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = e => {
     // TODO: Add Validation of JSON input from User
-    event.preventDefault();
+    e.preventDefault();
     this.setState({
       jsonUserInput: JSON.parse(this.state.rawUserInput)
     });
