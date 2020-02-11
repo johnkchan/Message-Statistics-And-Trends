@@ -1,27 +1,17 @@
 class Message {
+  constructor(sender, timestamp, content) {
+    this.sender = sender;
+    this.timestamp = new Date(timestamp);
+    this.content = content;
+  }
 
-    constructor(sender, timestamp, content) {
-        this.sender = sender;
-        this.timestamp = new Date(timestamp);
-        this.content = content;
-    }
+  getTimestamp() {
+    return this.timestamp.toString();
+  }
 
-    getTimestamp() {
-        return this.timestamp.toString();
-    }
-
-    getMonth() {
-        return this.timestamp.getMonth() + 1;
-    }
-
-    getDate() {
-        return this.timestamp.getDate();
-    }
-
-    getYear() {
-        return this.timestamp.getFullYear();
-    }
-
+  getDate() {
+    return this.timestamp.toDateString();
+  }
 }
 
 export default Message;

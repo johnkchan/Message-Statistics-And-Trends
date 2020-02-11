@@ -1,7 +1,7 @@
 class Participant {
-  constructor(name) {
+  constructor(name, messages) {
     this.name = name;
-    this.messages = [];
+    this.messages = messages;
     this.photos = [];
     this.gifs = [];
     this.reacts = [];

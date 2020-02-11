@@ -38,7 +38,7 @@ class ChatForm extends Component {
       <React.Fragment>
         <div className='form-group'>
           <form onSubmit={this.handleSubmit}>
-            <label>Group Chat:</label>
+            <label style={{ fontSize: "20px" }}>Group Chat:</label>
             <textarea
               value={this.state.value}
               onChange={this.handleChange}

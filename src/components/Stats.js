@@ -7,62 +7,112 @@ class Stats extends Component {
     super(props);
     this.state = {
       participants: [],
-      showMessage: []
+      selectedParticipant: ""
     };
   }
 
   componentDidMount = () => {
     // Return list of participants from Group Chat JSON
-    const participants = this.props.groupChat.participants.map(
-      participant => new Participant(participant.name)
-    );
-
-    for (let i = 0; i < participants.length; i++) {
-      let participantName = participants[i].name;
-      const participantMessages = this.props.groupChat.messages.filter(
-        message => message.sender_name === participantName
-      );
-    }
+    const participants = this.props.groupChat.participants.map(participant => {
+      const name = participant.name;
+      const messages = this.props.groupChat.messages
+        .filter(message => message.sender_name === name)
+        .reverse()
+        .map(
+          message =>
+            new Message(
+              message.sender_name,
+              message.timestamp_ms,
+              message.content
+            )
+        );
+      return new Participant(name, messages);
+    });
 
     this.setState({
-      participants: participants
+      participants
     });
   };
 
   handleClick = e => {
     e.preventDefault();
-    const name = e.target.parentNode.innerText.replace(" Show", "");
-    const messages = this.props.groupChat.messages.filter(
-      message => message.sender_name === name
-    );
+    const name = e.target.id;
     this.setState({
-      showMessage: messages
+      selectedParticipant: name
+    });
+  };
+
+  handleHide = e => {
+    e.preventDefault();
+    this.setState({
+      selectedParticipant: ""
     });
   };
 
   render() {
     return (
       <div>
-        <h2>Group Chat Breakdown:</h2>
+        <h2>{this.props.groupChat.title} Chat Breakdown:</h2>
         <h3>Participants</h3>
-        <ol>
-          {this.state.participants.map((participant, index) => (
-            <li key={index}>
-              {participant.name + " "}
-              <button className='btn btn-info' onClick={this.handleClick}>
-                Show
-              </button>
-            </li>
-          ))}
-        </ol>
-        {this.state.showMessage.length !== 0 && (
+        <table className='table table-hover'>
+          <thead>
+            <tr>
+              <th scope='col'>Name</th>
+              <th scope='col'>Message Count</th>
+              <th scope='col'>Display</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.participants.map((participant, index) => (
+              <tr key={index}>
+                <td>{participant.name}</td>
+                <td>{participant.messages.length}</td>
+                <td>
+                  {this.state.selectedParticipant !== participant.name ? (
+                    <button
+                      className='btn btn-info'
+                      onClick={this.handleClick}
+                      id={participant.name}
+                    >
+                      Show
+                    </button>
+                  ) : (
+                    <button
+                      className='btn btn-warning'
+                      onClick={this.handleHide}
+                    >
+                      Hide
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {this.state.selectedParticipant && (
           <>
-            <h3>{this.state.showMessage[0].sender_name + "'s Messages"}</h3>
-            <ul>
-              {this.state.showMessage.reverse().map((message, index) => (
-                <li key={index}>{message.content}</li>
-              ))}
-            </ul>
+            <h3>{this.state.selectedParticipant + "'s Messages"}</h3>
+            <table className='table table-sm'>
+              <thead>
+                <tr>
+                  <th scope='col'>Time Sent</th>
+                  <th scope='col'>Message Content</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.participants
+                  .filter(
+                    participant =>
+                      participant.name === this.state.selectedParticipant
+                  )[0]
+                  .messages.map((message, index) => (
+                    <tr key={index}>
+                      <th>{message.getDate()}</th>
+                      <td>{message.content}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </>
         )}
       </div>
