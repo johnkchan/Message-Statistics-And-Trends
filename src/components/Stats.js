@@ -63,30 +63,34 @@ class Stats extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.participants.map((participant, index) => (
-              <tr key={index}>
-                <td>{participant.name}</td>
-                <td>{participant.messages.length}</td>
-                <td>
-                  {this.state.selectedParticipant !== participant.name ? (
-                    <button
-                      className='btn btn-info'
-                      onClick={this.handleClick}
-                      id={participant.name}
-                    >
-                      Show
-                    </button>
-                  ) : (
-                    <button
-                      className='btn btn-warning'
-                      onClick={this.handleHide}
-                    >
-                      Hide
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {this.state.participants
+              .sort((a, b) => {
+                return b.messages.length - a.messages.length;
+              })
+              .map((participant, index) => (
+                <tr key={index}>
+                  <td>{participant.name}</td>
+                  <td>{participant.messages.length}</td>
+                  <td>
+                    {this.state.selectedParticipant !== participant.name ? (
+                      <button
+                        className='btn btn-info'
+                        onClick={this.handleClick}
+                        id={participant.name}
+                      >
+                        Show
+                      </button>
+                    ) : (
+                      <button
+                        className='btn btn-warning'
+                        onClick={this.handleHide}
+                      >
+                        Hide
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         {this.state.selectedParticipant && (
