@@ -36,9 +36,9 @@ class Stats extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    const name = e.target.id;
+    const selectedParticipant = e.target.id;
     this.setState({
-      selectedParticipant: name
+      selectedParticipant
     });
   };
 
