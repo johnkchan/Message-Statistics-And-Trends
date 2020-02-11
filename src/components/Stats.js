@@ -13,9 +13,9 @@ class Stats extends Component {
 
   componentDidMount = () => {
     // Return list of participants from Group Chat JSON
-    const participants = this.props.groupChat.participants.map(participant => {
+    const participants = this.props.participants.map(participant => {
       const name = participant.name;
-      const messages = this.props.groupChat.messages
+      const messages = this.props.messages
         .filter(message => message.sender_name === name)
         .reverse()
         .map(
@@ -52,7 +52,7 @@ class Stats extends Component {
   render() {
     return (
       <div>
-        <h2>{this.props.groupChat.title} Chat Breakdown:</h2>
+        <h2>{this.props.title} Chat Breakdown:</h2>
         <h3>Participants</h3>
         <table className='table table-hover'>
           <thead>

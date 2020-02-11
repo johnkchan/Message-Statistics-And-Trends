@@ -63,7 +63,7 @@ class ChatForm extends Component {
         </div>
 
         {this.state.jsonUserInput !== "" ? (
-          <Stats groupChat={this.state.jsonUserInput} />
+          <Stats {...this.state.jsonUserInput} />
         ) : null}
       </React.Fragment>
     );
